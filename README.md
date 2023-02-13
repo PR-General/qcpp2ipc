@@ -12,3 +12,6 @@ The classes are enhanced with meta information and fed into qcpp2ipc with furthe
 
 ## **Examples**
 - [Elevator Example](examples/elevator/README.MD)
+
+Using this Elevator Example for context - below is a demonstration of using qcpp2ipc to produce a DBUS service.
+![dbus elevator](docs/diagrams//qcpp2dbus_example.drawio.png)
