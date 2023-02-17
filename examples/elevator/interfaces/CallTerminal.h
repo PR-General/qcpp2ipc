@@ -1,5 +1,16 @@
 #include <QObject>
 
+#ifdef  ELEVATOR_SYSTEM
+#define SYS_CALL    ASYNC_OUT
+#define CLIENT_CALL ASYNC_IN
+#define OMNI_CALL   ASYNC_INOUT
+#else
+#define SYS_CALL    ASYNC_IN
+#define CLIENT_CALL ASYNC_OUT
+#define OMNI_CALL   ASYNC_INOUT
+#endif
+#include "../../../src/include/known_keywords.h"
+
 class CallTerminal : public QObject
 {
     Q_OBJECT
@@ -24,13 +35,14 @@ signals:
     void systemConnectionChanged(bool);
 
 public slots: // user called request methods
-    virtual void requestUpCall(){}
-    virtual void requestDownCall(){}
+    CLIENT_CALL void requestUpCall(){}
+    CLIENT_CALL void requestDownCall(){}
 
     // set the internal variable state for connection status (to elevator system)
-    void setSystemConnection(bool connected){Q_UNUSED(connected);}
+    SYS_CALL void setSystemConnection(bool connected){Q_UNUSED(connected);}
 
 protected slots: // Elevator system notifies when to clear request
-    virtual void clearRequest(){}
+    SYS_CALL void clearRequest(){}
+    SYS_CALL quint32 testFunction(){return 2;}
 
 }; // End CALL_TERMINAL_H

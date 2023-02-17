@@ -30,7 +30,7 @@ The design consists of a main system controller, an elevator Car controller, an 
 
         ElevatorFloor{ // basement floor controller
             id:basement  
-            name:"Basement Floor"          
+            name:"Basement"          
             Doors{
                 id: basementDoors
             }
@@ -44,7 +44,7 @@ The design consists of a main system controller, an elevator Car controller, an 
 
         ElevatorFloor{ // lobby floor controller
             id:lobby            
-            name:"Lobby Floor" 
+            name:"Lobby" 
             Doors{
                 id:lobbyDoors
             }
@@ -67,16 +67,19 @@ Each individual controller is connected to a networked bus. The controller API (
 
 -  ElevatorSystem.h => ElevatorSystem 
 -  FloorRequestTerminal.h => FloorRequestTerminal 
--  CallTerminal.h => CallTerminal 
 -  ElevatorCar.h => ElevatorCar 
 -  ElevatorFloor.h => ElevatorFloor  
+-  CallTerminal.h => CallTerminal 
 -  Doors.h => Doors  
 -  etc... 
 
 - `Elevator System Controller:` The elevator system controller is the master coordinating controller. Through this interface, applications and other processes may interact with the Elevator System (service).
 - `Elevator Car Controller:` Encapsulates the properties of an elevator car. Sub interfaces such as Car.Doors and Car.FloorRequestTerminal allow access to children object interfaces. A real world elevator system usually has mutliple cars; their naming and object interfaces might be used like:
-
+- `Elevator Floor Request Terminal:` The elevator car contains a terminal for the user to request a destination floor as well as interact/view the status of the car and journey. Multiple floors may be selected simultaneously; the elevator system will route the elevator car to the appropriate floor.
 - `Elevator Floor Controller:` An object structure that represents the elevator entryway for each floor. The floor's doors will remain shut while a car is not present to prevent passenger or cargo from falling inside the open shaft. The user interacts with the floor's CallTerminal, allowing an elevator to be called to a floor and what direction the passenger or cargo would like to travel.
+- `Elevator Call Terminal:` A HMI that notifies the Elevator System of a user request for an Elevator car. This request also notifies the system of the users intended direction to optimize car routing.
+- `Elevator Status Display:` A read only display, per floor, that notifies users of the current status of the (called) elevator car.
+- `Elevator Doors:` Doors open simultaneously and contain minimal state and logic; intended to be driven by a higher level controller.
 
 ### **Demonstration of object interfaces**
 ```js

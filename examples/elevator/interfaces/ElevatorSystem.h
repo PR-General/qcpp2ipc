@@ -2,6 +2,7 @@
 #define ELEVATOR_H
 
 #include <QObject>
+#include <QList>
 class ElevatorCar;
 class ElevatorMotor;
 class ElevatorFloor;
